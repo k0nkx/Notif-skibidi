@@ -1,3 +1,5 @@
+-- NotificationLibrary.lua
+
 local TweenService = game:GetService("TweenService")
 local TextService = game:GetService("TextService")
 local CoreGui = game:GetService("CoreGui")
@@ -14,9 +16,11 @@ local TweenTable = {
     notification_reset = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
 }
 
-local function Notify(text, duration, type)
+local NotificationLibrary = {}
+
+function NotificationLibrary.Notify(text, duration, type)
     -- Clear existing notifications
-    for i, v in next, CoreGui:GetChildren() do
+    for _, v in ipairs(CoreGui:GetChildren()) do
         if v.Name == "Notifications" then
             v:Destroy()
         end
@@ -161,11 +165,4 @@ local function Notify(text, duration, type)
     end)()
 end
 
--- Test notifications
-Notify("Hello", 1, "notification")
-wait(2)
-Notify("Testing notification", 1, "notification")
-wait(2)
-Notify("Notification length testing longer", 1, "notification")
-wait(2)
-Notify("Ignore those notifications", 2, "alert")
+return NotificationLibrary
